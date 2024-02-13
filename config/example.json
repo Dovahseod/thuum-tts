@@ -1,0 +1,7 @@
+{
+    "command_prefix": "",
+    "owner_ids": [],
+    "debug_channel_id": ,
+    "default_voice": "en",
+    "espeak_ng_path": "espeak-ng" 
+}
