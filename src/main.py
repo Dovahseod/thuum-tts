@@ -58,7 +58,7 @@ class Bot(commands.Bot):
             voice=bot_configs['default_voice'])
 
     async def setup_hook(self) -> None:
-        self.preferences = aiosqlite.connect("data/preferences.db")
+        self.preferences = await aiosqlite.connect("data/preferences.db")
         try:
             await self.preferences.execute("SELECT * FROM preferences")
         except aiosqlite.OperationalError:
