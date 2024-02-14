@@ -4,7 +4,6 @@ import logging
 import os
 import platform
 import time
-from collections import defaultdict
 
 import aiosqlite
 import discord
@@ -16,6 +15,7 @@ from tasks.activity_update import _activity_update
 from utils.espeak_ng import Speaker
 import utils.embed_maker as em
 from utils.embed_sender import send_embed_id
+from utils.init_database import _initialize_database
 from utils.timestamp import timestamp
 
 
@@ -58,7 +58,11 @@ class Bot(commands.Bot):
             voice=bot_configs['default_voice'])
 
     async def setup_hook(self) -> None:
-        self.preferences = await aiosqlite.connect("data/users.db")
+        self.preferences = aiosqlite.connect("data/preferences.db")
+        try:
+            await self.preferences.execute("SELECT * FROM preferences")
+        except aiosqlite.OperationalError:
+            await _initialize_database(self.preferences)
         for extension in EXTENSIONS:
             await self.load_extension(extension)
         print("Bot ready")
