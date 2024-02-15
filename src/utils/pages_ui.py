@@ -33,6 +33,10 @@ class PagesUI(discord.ui.View):
         self.title_row = title_row
         self.current_page = 1
         self.npages = len(pages)
+        self.add_item(PagesUIButton_First(disabled=True))
+        self.add_item(PagesUIButton_Previous(disabled=True))
+        self.add_item(PagesUIButton_Next())
+        self.add_item(PagesUIButton_Final())
 
     def display_page(self, page: typing.Optional[int] = None) -> discord.Embed:
         if page is None:
