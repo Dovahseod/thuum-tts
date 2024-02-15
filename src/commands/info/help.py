@@ -6,7 +6,7 @@ from discord.ext import commands
 
 import utils.embed_maker as em
 
-COGS_INCLUDED = ['Information', 'Voice', 'Music', 'Text']
+COGS_INCLUDED = ['Information', 'Voice', 'Preferences']
 autocomplete_choices = set()
 
 async def _help(ctx: commands.Context, command: typing.Optional[str]):
