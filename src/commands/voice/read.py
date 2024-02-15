@@ -63,8 +63,9 @@ async def _read(ctx: commands.Context, phrase: str, voice: typing.Optional[str] 
     if user_preferences is None:
         audio = await bot.tts.read(phrase, voice=voice)
     else:
+        keys = ('voice', 'wpm', 'wordgap', 'pitch', 'amplitude')
         user_preferences_dict = {
-            key: user_preferences[key] for key in user_preferences.keys()
+            keys[i]: user_preferences[i] for i in range(len(keys))
             }
         user_preferences_dict['voice'] = voice or user_preferences_dict['voice']
         audio = await bot.tts.read(phrase, **user_preferences_dict)
