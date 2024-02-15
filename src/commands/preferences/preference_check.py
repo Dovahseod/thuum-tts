@@ -37,7 +37,7 @@ async def _preference_check(ctx: commands.Context, key: str):
     else:
         value = result[key]
 
-    if key == 'wordgap':
+    if key == 'wordgap' and value != 0:
         await ctx.send(embed=em.regular(
             f"Your `{key}` is set to `{value}` ({value}0ms)."
             ), ephemeral=True)
