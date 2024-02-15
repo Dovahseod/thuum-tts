@@ -24,7 +24,7 @@ class Preferences(commands.Cog):
     @app_commands.guild_only()
     @commands.guild_only()
     @app_commands.describe(
-        key='Name of the parameter. \'wpm\', \'gap\' (word gap, *10ms), \'pitch\', \'amplitude\', or \'voice\'.',
+        key='Name of the parameter. \'wpm\', \'wordgap\' (word gap, *10ms), \'pitch\', \'amplitude\', or \'voice\'.',
         value='Value to update the parameter to. Leave empty to check current setting.'
         )
     @app_commands.autocomplete(key=_tts_parameter_autocomplete)
@@ -48,18 +48,18 @@ class Preferences(commands.Cog):
         else:
             await _preference_check(ctx, 'wpm')
 
-    @commands.hybrid_command(name='gap', aliases = ['g', 'wgap', 'wordgap'])
+    @commands.hybrid_command(name='wordgap', aliases = ['g', 'wgap', 'gap'])
     @app_commands.guild_only()
     @commands.guild_only()
     @app_commands.describe(
         value='Accept values in [0, 500]. Value * 10ms is the gap. Leave empty to check current setting.'
         )
-    async def gap(self, ctx: commands.Context, value: Optional[int]):
+    async def wordgap(self, ctx: commands.Context, value: Optional[int]):
         """Checks or update the word gap (extra time between words) of the TTS, for you, in this server."""
         if value is not None:
-            await _preference_update(ctx, 'gap', value)
+            await _preference_update(ctx, 'wordgap', value)
         else:
-            await _preference_check(ctx, 'gap')
+            await _preference_check(ctx, 'wordgap')
 
     @commands.hybrid_command(name='pitch', aliases = ['p'])
     @app_commands.guild_only()

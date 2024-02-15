@@ -29,7 +29,7 @@ class Speaker():
         self.amplitude = kwargs.get('amplitude', 100) # 0-200
         self.pitch = kwargs.get('pitch', 50) # 0-99
         self.wpm = kwargs.get('wpm', 175) # words per min, 20-500 recommended
-        self.gap = kwargs.get('gap', 0) # additional word gap, positive int, 10ms intervals
+        self.wordgap = kwargs.get('wordgap', 0) # additional word gap, positive int, 10ms intervals
         self.voice = voice
         self.program = program
         self.enable_mbrola = enable_mbrola
@@ -39,7 +39,7 @@ class Speaker():
             'amplitude' : (0, 200),
             'pitch': (0, 99),
             'wpm': (20, 500), # Technically not limited; 20-500 recommended
-            'gap': (0, 500) # Technically no upper bounds; 5 seconds to limit abuse
+            'wordgap': (0, 500) # Technically no upper bounds; 5 seconds to limit abuse
         }
 
         for key in parameters.keys():
@@ -80,15 +80,15 @@ class Speaker():
         return available_voices
 
     async def read(self, words: str, voice: Optional[str] = None, wpm: Optional[int] = None,
-                   gap: Optional[int] = None, pitch: Optional[int] = None,
+                   wordgap: Optional[int] = None, pitch: Optional[int] = None,
                    amplitude: Optional[int] = None) -> bytes:
         """Reads the words with the given parameters or default parameters, and returns a `bytes` object of the TTS audio."""
         if voice is None:
             voice = self.voice
         if wpm is None:
             wpm = self.wpm
-        if gap is None:
-            gap = self.gap
+        if wordgap is None:
+            wordgap = self.wordgap
         if pitch is None:
             pitch = self.pitch
         if amplitude is None:
@@ -96,13 +96,13 @@ class Speaker():
 
         self.verify_parameters({
             'wpm': wpm,
-            'gap': gap,
+            'wordgap': wordgap,
             'pitch': pitch,
             'amplitude': amplitude,
         })
 
         process = await asyncio.subprocess.create_subprocess_exec(
-            self.program, '-v', voice, '-s', str(wpm), '-g', str(gap),
+            self.program, '-v', voice, '-s', str(wpm), '-g', str(wordgap),
             '-p', str(pitch), '-a', str(amplitude), '--stdout', f'"{words}"',
             stdout=asyncio.subprocess.PIPE, text=False
             )

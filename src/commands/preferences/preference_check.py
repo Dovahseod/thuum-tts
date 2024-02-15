@@ -21,7 +21,7 @@ async def _preference_check(ctx: commands.Context, key: str):
     key = key.lower()
 
     # Illegal key
-    if not key in {'wpm', 'gap', 'pitch', 'amplitude', 'voice'}:
+    if not key in {'wpm', 'wordgap', 'pitch', 'amplitude', 'voice'}:
         return await ctx.send(embed=em.warning(
             f"Key {key} not recognized."
             ), ephemeral=True)
@@ -37,7 +37,7 @@ async def _preference_check(ctx: commands.Context, key: str):
     else:
         value = result[key]
 
-    if key == 'gap':
+    if key == 'wordgap':
         await ctx.send(embed=em.regular(
             f"Your `{key}` is set to `{value}` ({value}0ms)."
             ), ephemeral=True)

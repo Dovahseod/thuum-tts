@@ -53,7 +53,7 @@ async def _read(ctx: commands.Context, phrase: str, voice: typing.Optional[str] 
     # Grab preferences
     bot = typing.cast(Bot, ctx.bot)
     cursor = await bot.preferences.execute(
-        f"""SELECT voice, wpm, gap, pitch, amplitude
+        f"""SELECT voice, wpm, wordgap, pitch, amplitude
             FROM preferences
             WHERE guild = {ctx.guild.id} AND user = {ctx.author.id}"""
         )

@@ -22,13 +22,13 @@ async def _preference_update(ctx: commands.Context, key: str, value: int | str):
     key = key.lower()
 
     # Illegal key
-    if not key in {'wpm', 'gap', 'pitch', 'amplitude', 'voice'}: 
+    if not key in {'wpm', 'wordgap', 'pitch', 'amplitude', 'voice'}: 
         return await ctx.send(embed=em.warning(
             f"Key {key} not recognized."
             ), ephemeral=True)
     
     # Bad value type for the parameter
-    if ((key in {'wpm', 'gap', 'pitch', 'amplitude'}
+    if ((key in {'wpm', 'wordgap', 'pitch', 'amplitude'}
             and not isinstance(value, int))                  # str where int is expected
         or (key == 'voice' and not isinstance(value, str))): # int where str is expected
         return await ctx.send(embed=em.warning(
@@ -59,7 +59,7 @@ async def _tts_parameter_autocomplete(
         interaction: discord.Interaction,
         current: str
         ) -> list[app_commands.Choice[str]]:
-    valid_parameters = {'wpm', 'gap', 'pitch', 'amplitude', 'voice'}
+    valid_parameters = {'wpm', 'wordgap', 'pitch', 'amplitude', 'voice'}
     return [
         app_commands.Choice(name=parameter, value=parameter)
         for parameter in valid_parameters if current.lower() in parameter
