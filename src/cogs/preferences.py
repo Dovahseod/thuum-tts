@@ -24,11 +24,11 @@ class Preferences(commands.Cog):
     @app_commands.guild_only()
     @commands.guild_only()
     @app_commands.describe(
-        key='Name of the parameter. \'wpm\', \'wordgap\' (word gap, *10ms), \'pitch\', \'amplitude\', or \'voice\'.',
+        key='Name of the parameter. \'wpm\', \'wordgap\' (word gap, *10ms), \'pitch\', or \'amplitude\'.',
         value='Value to update the parameter to. Leave empty to check current setting.'
         )
     @app_commands.autocomplete(key=_tts_parameter_autocomplete)
-    async def preference(self, ctx: commands.Context, key: str, value: Optional[int | str]):
+    async def preference(self, ctx: commands.Context, key: str, value: Optional[int]):
         """Checks or update a parameter of the TTS, for you, in this server."""
         if value is not None:
             await _preference_update(ctx, key, value)

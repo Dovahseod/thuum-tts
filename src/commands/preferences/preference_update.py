@@ -59,7 +59,7 @@ async def _tts_parameter_autocomplete(
         interaction: discord.Interaction,
         current: str
         ) -> list[app_commands.Choice[str]]:
-    valid_parameters = {'wpm', 'wordgap', 'pitch', 'amplitude', 'voice'}
+    valid_parameters = {'wpm', 'wordgap', 'pitch', 'amplitude'}
     return [
         app_commands.Choice(name=parameter, value=parameter)
         for parameter in valid_parameters if current.lower() in parameter
