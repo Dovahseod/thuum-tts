@@ -3,5 +3,6 @@
     "owner_ids": [],
     "debug_channel_id": ,
     "default_voice": "en",
-    "espeak_ng_path": "espeak-ng" 
+    "espeak_ng_path": "espeak-ng",
+    "enable_mbrola": true
 }

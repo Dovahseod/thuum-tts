@@ -15,7 +15,7 @@ class TTSParameterError(Exception):
 
 
 class Speaker():
-    def __init__(self, program: str = 'espeak-ng', voice: str = 'en', **kwargs) -> None:
+    def __init__(self, program: str = 'espeak-ng', voice: str = 'en', enable_mbrola: bool = False, **kwargs) -> None:
         self.verify_parameters(kwargs)
 
         self.amplitude = kwargs.get('amplitude', 100) # 0-200
@@ -24,6 +24,7 @@ class Speaker():
         self.gap = kwargs.get('gap', 0) # additional word gap, positive int, 10ms intervals
         self.voice = voice
         self.program = program
+        self.enable_mbrola = enable_mbrola
 
     def verify_parameters(self, parameters):
         limits = {
@@ -59,8 +60,14 @@ class Speaker():
                 + re.split(r'[\\\/]', info_fields[4])
             # Pty, Language, Age, Gender, Voice Name, File folder, File name
             
-            available_voices.append(info_fields)
-        return available_voices          
+            if self.enable_mbrola:
+                available_voices.append(info_fields)
+            elif not re.match(r"mb-\S+", info_fields[-1]):
+                available_voices.append(info_fields)
+            else:
+                pass
+            
+        return available_voices
 
     async def read(self, words: str, voice: Optional[str] = None, wpm: Optional[int] = None,
                    gap: Optional[int] = None, pitch: Optional[int] = None,
