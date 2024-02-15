@@ -22,5 +22,4 @@ class Preferences(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(Preferences(bot))
-    bot.add_view(PagesUI([['']]))
     print("Cog loaded: Preferences")
