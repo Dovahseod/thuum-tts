@@ -52,7 +52,7 @@ class Preferences(commands.Cog):
     @app_commands.guild_only()
     @commands.guild_only()
     @app_commands.describe(
-        value='Accept any value >= 0. Value * 10ms is the gap. Leave empty to check current setting.'
+        value='Accept values in [0, 500]. Value * 10ms is the gap. Leave empty to check current setting.'
         )
     async def gap(self, ctx: commands.Context, value: Optional[int]):
         """Checks or update the word gap (extra time between words) of the TTS, for you, in this server."""

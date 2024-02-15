@@ -39,7 +39,7 @@ class Speaker():
             'amplitude' : (0, 200),
             'pitch': (0, 99),
             'wpm': (20, 500), # Technically not limited; 20-500 recommended
-            'gap': (0, None)
+            'gap': (0, 500) # Technically no upper bounds; 5 seconds to limit abuse
         }
 
         for key in parameters.keys():
