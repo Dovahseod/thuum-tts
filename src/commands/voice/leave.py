@@ -11,4 +11,4 @@ async def _leave(ctx: commands.Context):
             "Bot is not in a voice channel."
             ), ephemeral=True)
     await ctx.voice_client.disconnect(force=True)
-    await ctx.send("Bot disconnected.")
+    await ctx.send(embed=em.caution("Bot disconnected."))
