@@ -54,21 +54,20 @@ class Speaker():
         available_voices = []
         for language_info in languages_info:
             # discard empty rows
-            if not language_info:
-                pass
-            info_fields = language_info.split()
-            info_fields = info_fields[0:2] \
-                + info_fields[2].split('/') \
-                + [info_fields[3]] \
-                + re.split(r'[\\\/]', info_fields[4])
-            # Pty, Language, Age, Gender, Voice Name, File folder, File name
-            
-            if self.enable_mbrola:
-                available_voices.append(info_fields)
-            elif not re.match(r"mb-\S+", info_fields[-1]):
-                available_voices.append(info_fields)
-            else:
-                pass
+            if language_info:
+                info_fields = language_info.split()
+                info_fields = info_fields[0:2] \
+                    + info_fields[2].split('/') \
+                    + [info_fields[3]] \
+                    + re.split(r'[\\\/]', info_fields[4])
+                # Pty, Language, Age, Gender, Voice Name, File folder, File name
+                
+                if self.enable_mbrola:
+                    available_voices.append(info_fields)
+                elif not re.match(r"mb-\S+", info_fields[-1]):
+                    available_voices.append(info_fields)
+                else:
+                    pass
             
         return available_voices
 
