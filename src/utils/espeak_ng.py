@@ -53,6 +53,9 @@ class Speaker():
         languages_info = languages_str.split('\n')[1:] # discard title row
         available_voices = []
         for language_info in languages_info:
+            # discard empty rows
+            if not language_info:
+                pass
             info_fields = language_info.split()
             info_fields = info_fields[0:2] \
                 + info_fields[2].split('/') \
