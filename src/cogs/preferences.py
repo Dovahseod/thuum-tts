@@ -20,7 +20,7 @@ class Preferences(commands.Cog):
         """Lists the available voices of the bot."""
         await _voices(ctx, query)
 
-    @commands.hybrid_command(name='preference', aliases = ['p', 'update', 'u'])
+    @commands.hybrid_command(name='preference', aliases = ['update'])
     @app_commands.guild_only()
     @commands.guild_only()
     @app_commands.describe(
@@ -35,7 +35,7 @@ class Preferences(commands.Cog):
         else:
             await _preference_check(ctx, key)
 
-    @commands.hybrid_command(name='wpm', aliases = ['s', 'speed'])
+    @commands.hybrid_command(name='wpm', aliases = ['s', 'speed', 'w'])
     @app_commands.guild_only()
     @commands.guild_only()
     @app_commands.describe(
