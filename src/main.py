@@ -55,7 +55,8 @@ class Bot(commands.Bot):
         self.owner_ids = bot_configs['owner_ids']
         self.tts = Speaker(
             program=bot_configs['espeak_ng_path'],
-            voice=bot_configs['default_voice'])
+            voice=bot_configs['default_voice'],
+            enable_mbrola=bot_configs['enable_mbrola'])
 
     async def setup_hook(self) -> None:
         self.preferences = await aiosqlite.connect("data/preferences.db")
