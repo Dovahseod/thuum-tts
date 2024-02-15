@@ -24,8 +24,6 @@ async def _join(ctx: commands.Context):
             return await ctx.send(embed=em.regular(
             "Reconnect attempted."
             ), ephemeral=True)
-    else:
-        await attempt_reconnect(ctx)
     
     vc = await member.voice.channel.connect(
         timeout=20, reconnect=True, self_deaf=True
