@@ -5,7 +5,7 @@ A Discord bot for text-to-speech.
 [discord.py](https://github.com/Rapptz/discord.py) (with voice support), [python-dotenv](https://github.com/theskumar/python-dotenv), [aiofiles](https://github.com/Tinche/aiofiles), [aiosqlite](https://github.com/omnilib/aiosqlite)
 
 ## Initial Configuration
-[eSpeak NG](https://github.com/espeak-ng/espeak-ng) is required for the tts to work. [MBROLA](https://github.com/numediart/MBROLA) with a selection of [MBROLA voices](https://github.com/numediart/MBROLA-voices) is recommended as the resulted speech is more natural.
+[eSpeak NG](https://github.com/espeak-ng/espeak-ng) is required for the tts to work. [MBROLA](https://github.com/numediart/MBROLA) with a selection of [MBROLA voices](https://github.com/numediart/MBROLA-voices) is recommended as the resulted speech could sound more natural.
 
 In `/config/` folder make a copy of `example.json`, rename it to your liking, and fill in values.
 
