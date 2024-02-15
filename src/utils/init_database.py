@@ -10,7 +10,7 @@ async def initialize_database(db: aiosqlite.Connection):
                 wpm INTEGER,
                 wordgap INTEGER,
                 pitch INTEGER,
-                amplitude INTEGER
+                amplitude INTEGER,
                 PRIMARY KEY(guild, user)
             )""")
     await db.commit()
