@@ -11,7 +11,7 @@ async def _voices(ctx: commands.Context, query: typing.Optional[str] = None):
     bot = typing.cast(Bot, ctx.bot)
     if not query:
         query = ''
-        title = 'Available voices'
+        title = 'Available eSpeak voices'
         if bot.tts.enable_mbrola:
             await ctx.send(embed=mbrola_embed())
     elif query == 'mb':
@@ -43,5 +43,5 @@ async def _voices(ctx: commands.Context, query: typing.Optional[str] = None):
 
 def mbrola_embed():
     return em.regular(
-        "This bot provides the option to use (MBROLA)[https://github.com/numediart/MBROLA] to produce better speech from the text.\n\nUse `mb` as the query for the `voices` command to filter for the available MBROLA voices."
+        "This bot provides the option to use [MBROLA](https://github.com/numediart/MBROLA) to produce better speech from the text.\n\nUse `mb` as the query for the `voices` command to list all the available MBROLA voices."
     )
