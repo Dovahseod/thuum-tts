@@ -20,7 +20,17 @@ async def _voices(ctx: commands.Context, query: typing.Optional[str] = None):
         title = f'Available voices for `{query}`'
     
     results = await bot.tts.list_voices(query)
-    title_row = "`eSpeak Identifier` - Language/Gender - Voice Name"
+    if not results:
+        if query:
+            return await ctx.send(embed=em.warning(
+                "No voices available for the given query."
+                ))
+        else:
+            return await ctx.send(embed=em.warning(
+                "No voices available."
+                ))
+        
+    title_row = "**`eSpeak Identifier` - Language/Gender - Voice Name**"
     results_display = [
         f"`{voice_info[-1]}` - {voice_info[1]}/{voice_info[3]} - {voice_info[4]}"
         for voice_info in results]
