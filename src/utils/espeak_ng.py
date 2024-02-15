@@ -8,7 +8,15 @@ class ESpeakError(Exception):
 
 
 class TTSParameterError(Exception):
-    def __init__(self, parameter, value, limits) -> None:
+    def __init__(
+            self,
+            parameter: str,
+            value: int,
+            limits: tuple[int | None, int | None]
+            ) -> None:
+        self.parameter = parameter
+        self.value = value
+        self.limits = limits
         super().__init__(
             f"TTS Parameter {parameter} out of bounds: {value} given, expected within [{limits[0]}, {'inf' if limits[1] is None else limits[1]}]"
         )

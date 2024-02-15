@@ -4,7 +4,8 @@ from discord import app_commands
 from discord.ext import commands
 
 from commands.preferences.voices import _voices
-from utils.pages_ui import PagesUI
+from commands.preferences.preference_check import _preference_check
+from commands.preferences.preference_update import _preference_update, _tts_parameter_autocomplete
 
 
 class Preferences(commands.Cog):
@@ -18,6 +19,86 @@ class Preferences(commands.Cog):
     async def voices(self, ctx: commands.Context, query: Optional[str] = None):
         """Lists the available voices of the bot."""
         await _voices(ctx, query)
+
+    @commands.hybrid_command(name='preference', aliases = ['p', 'update', 'u'])
+    @app_commands.guild_only()
+    @commands.guild_only()
+    @app_commands.describe(
+        key='Name of the parameter. \'wpm\', \'gap\' (word gap, *10ms), \'pitch\', \'amplitude\', or \'voice\'.',
+        value='Value to update the parameter to. Leave empty to check current setting.'
+        )
+    @app_commands.autocomplete(key=_tts_parameter_autocomplete)
+    async def preference(self, ctx: commands.Context, key: str, value: Optional[int | str]):
+        """Checks or update a parameter of the TTS, for you, in this server."""
+        if value is not None:
+            await _preference_update(ctx, key, value)
+        else:
+            await _preference_check(ctx, key)
+
+    @commands.hybrid_command(name='wpm', aliases = ['s', 'speed'])
+    @app_commands.guild_only()
+    @commands.guild_only()
+    @app_commands.describe(
+        value='Accept values in [20, 500]. Leave empty to check current setting.'
+        )
+    async def wpm(self, ctx: commands.Context, value: Optional[int]):
+        """Checks or update the WPM (words per minute) of the TTS, for you, in this server."""
+        if value is not None:
+            await _preference_update(ctx, 'wpm', value)
+        else:
+            await _preference_check(ctx, 'wpm')
+
+    @commands.hybrid_command(name='gap', aliases = ['g', 'wgap', 'wordgap'])
+    @app_commands.guild_only()
+    @commands.guild_only()
+    @app_commands.describe(
+        value='Accept any value >= 0. Value * 10ms is the gap. Leave empty to check current setting.'
+        )
+    async def gap(self, ctx: commands.Context, value: Optional[int]):
+        """Checks or update the word gap (extra time between words) of the TTS, for you, in this server."""
+        if value is not None:
+            await _preference_update(ctx, 'gap', value)
+        else:
+            await _preference_check(ctx, 'gap')
+
+    @commands.hybrid_command(name='pitch', aliases = ['p'])
+    @app_commands.guild_only()
+    @commands.guild_only()
+    @app_commands.describe(
+        value='Accept values in [0, 99]. Leave empty to check current setting.'
+        )
+    async def pitch(self, ctx: commands.Context, value: Optional[int]):
+        """Checks or update the pitch of the TTS, for you, in this server."""
+        if value is not None:
+            await _preference_update(ctx, 'pitch', value)
+        else:
+            await _preference_check(ctx, 'pitch')
+
+    @commands.hybrid_command(name='amplitude', aliases = ['a', 'volume', 'vol', 'amp'])
+    @app_commands.guild_only()
+    @commands.guild_only()
+    @app_commands.describe(
+        value='Accept values in [0, 200], in %. Leave empty to check current setting.'
+        )
+    async def amplitude(self, ctx: commands.Context, value: Optional[int]):
+        """Checks or update the amplitude (volume) of the TTS, for you, in this server."""
+        if value is not None:
+            await _preference_update(ctx, 'amplitude', value)
+        else:
+            await _preference_check(ctx, 'amplitude')
+
+    @commands.hybrid_command(name='voice', aliases = ['v'])
+    @app_commands.guild_only()
+    @commands.guild_only()
+    @app_commands.describe(
+        value='Leave empty to check current setting.'
+        )
+    async def voice(self, ctx: commands.Context, value: Optional[str]):
+        """Checks or update the voice of the TTS, for you, in this server."""
+        if value is not None:
+            await _preference_update(ctx, 'voice', value)
+        else:
+            await _preference_check(ctx, 'voice')
 
 
 async def setup(bot: commands.Bot):
