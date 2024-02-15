@@ -9,14 +9,17 @@ def pages_factory(
         color: int | discord.Colour | None = None,
         title: typing.Optional[str] = None,
         title_row: typing.Optional[str] = None
-        ) -> tuple[discord.Embed, discord.ui.View]:
+        ) -> tuple[discord.Embed, discord.ui.View | None]:
     pages = []
     for i in range((len(rows)/nrows_per_page).__ceil__()):
         range_start = i*nrows_per_page
         range_stop = min(len(rows), i*nrows_per_page+nrows_per_page)
         pages.append(rows[range_start:range_stop])
     page_control_ui = PagesUI(pages, color, title, title_row)
-    return page_control_ui.display_page(), page_control_ui
+    if len(pages) > 1:
+        return page_control_ui.display_page(), page_control_ui
+    else:
+        return page_control_ui.display_page(), None
 
 
 class PagesUI(discord.ui.View):
@@ -35,8 +38,12 @@ class PagesUI(discord.ui.View):
         self.npages = len(pages)
         self.add_item(PagesUIButton_First(disabled=True))
         self.add_item(PagesUIButton_Previous(disabled=True))
-        self.add_item(PagesUIButton_Next())
-        self.add_item(PagesUIButton_Final())
+        if self.npages > 1:
+            self.add_item(PagesUIButton_Next())
+            self.add_item(PagesUIButton_Final())
+        else:
+            self.add_item(PagesUIButton_Next(disabled=True))
+            self.add_item(PagesUIButton_Final(disabled=True))
 
     def display_page(self, page: typing.Optional[int] = None) -> discord.Embed:
         if page is None:

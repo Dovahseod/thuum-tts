@@ -25,7 +25,10 @@ async def _voices(ctx: commands.Context, query: typing.Optional[str] = None):
         f"`{voice_info[-1]}` - {voice_info[1]}/{voice_info[3]} - {voice_info[4]}"
         for voice_info in results]
     first_page, page_control_ui = pages_factory(results_display, 10, 0x00AAAA, title, title_row)
-    await ctx.send(embed=first_page, view=page_control_ui)
+    if page_control_ui is not None:
+        await ctx.send(embed=first_page, view=page_control_ui)
+    else:
+        await ctx.send(embed=first_page)
 
 
 def mbrola_embed():
