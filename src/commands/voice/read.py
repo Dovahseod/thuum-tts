@@ -69,7 +69,10 @@ async def _read(ctx: commands.Context, phrase: str, voice: typing.Optional[str] 
         user_preferences_dict['voice'] = voice or user_preferences_dict['voice']
         audio = await bot.tts.read(phrase, **user_preferences_dict)
 
+    if not audio:
+        return await ctx.send(embed=em.warning("Failed to generate speech."), ephemeral=True)
+
     # play audio
     audio_io = io.BytesIO(audio)
-    await ctx.send(embed=em.regular("Reading"), ephemeral=True)
+    await ctx.send(embed=em.regular("Reading"))
     vc.play(discord.FFmpegPCMAudio(audio_io, pipe=True, stderr=sys.stderr, **FFMPEG_OPTIONS))
