@@ -15,7 +15,7 @@ from tasks.activity_update import _activity_update
 from utils.espeak_ng import Speaker
 import utils.embed_maker as em
 from utils.embed_sender import send_embed_id
-from utils.init_database import _initialize_database
+from utils.init_database import initialize_database
 from utils.timestamp import timestamp
 
 
@@ -62,7 +62,7 @@ class Bot(commands.Bot):
         try:
             await self.preferences.execute("SELECT * FROM preferences")
         except aiosqlite.OperationalError:
-            await _initialize_database(self.preferences)
+            await initialize_database(self.preferences)
         for extension in EXTENSIONS:
             await self.load_extension(extension)
         print("Bot ready")
