@@ -6,7 +6,7 @@ from main import Bot
 from tasks.activity_update import _activity_update
 from utils.basic_error_handler import basic_error_handler
 
-EVERY_HALF_MINUTE = [datetime.time(h, m, s) for h in range(24) for m in range(60) for s in [0, 30]]
+EVERY_MINUTE = [datetime.time(h, m) for h in range(24) for m in range(60)]
 
 
 class Tasks(commands.Cog):
@@ -17,7 +17,7 @@ class Tasks(commands.Cog):
     def cog_unload(self):
         self.activity_update.cancel()
 
-    @tasks.loop(time=EVERY_HALF_MINUTE)
+    @tasks.loop(time=EVERY_MINUTE)
     async def activity_update(self):
         await _activity_update(self.bot)
 
