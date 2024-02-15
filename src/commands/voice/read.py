@@ -10,7 +10,7 @@ from utils.attempt_reconnect import attempt_reconnect
 import utils.embed_maker as em
 
 
-FFMPEG_OPTIONS = {'options': '-vn'}
+FFMPEG_OPTIONS = {'options': '-vn -loglevel fatal'}
 
 async def _read(ctx: commands.Context, phrase: str, voice: typing.Optional[str] = None):
     if not ctx.guild:
