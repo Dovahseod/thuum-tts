@@ -4,6 +4,7 @@ from discord import app_commands
 from discord.ext import commands
 
 from commands.preferences.voices import _voices
+from utils.pages_ui import PagesUI
 
 
 class Preferences(commands.Cog):
@@ -21,4 +22,5 @@ class Preferences(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(Preferences(bot))
+    bot.add_view(PagesUI([['']]))
     print("Cog loaded: Preferences")
