@@ -32,10 +32,10 @@ async def _preference_check(ctx: commands.Context, key: str):
             (ctx.guild.id, ctx.author.id))
     result = await cursor.fetchone()
 
-    if not result or result[key] is None:
+    if not result or result[0] is None:
         value = bot.tts.__getattribute__(key)
     else:
-        value = result[key]
+        value = result[0]
 
     if key == 'wordgap' and value != 0:
         await ctx.send(embed=em.regular(
